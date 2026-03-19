@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GoChef - Jeu Culinaire</title>
+
+    <link rel="stylesheet" href="css/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+    />
+  </head>
+  <body>
+    <main id="game-main">
+      <section id="game-container">
+        <section class="">
+          <div>
+            <p class="time"></p>
+          </div>
+
+          <hr />
+
+          <div class="stats">
+            <h2>Statistiques 📊</h2>
+            <table id="stats-table">
+              <tr>
+                <td>Clics totaux</td>
+                <td id="stat-clicks">0</td>
+              </tr>
+              <tr>
+                <td>Temps de cuisine</td>
+                <td id="stat-time">0s</td>
+              </tr>
+            </table>
+          </div>
+        </section>
+
+        <div class="game-area">
+          <h1>👨‍🍳 GoChef</h1>
+          <div class="gamer_grade">
+            <span class="material-symbols-outlined">skillet</span>
+            <span class="material-symbols-outlined">dinner_dining</span>
+            <span class="material-symbols-outlined">restaurant</span>
+            <span class="material-symbols-outlined">workspace_premium</span>
+          </div>
+
+          <div class="score-container">
+            <p>Pièces : <span id="cookscore">0</span></p>
+          </div>
+
+          <button id="main-dish-btn" aria-label="Cuisiner un plat">
+            <span id="main-dish" class="material-symbols-outlined"
+              >cooking</span
+            >
+          </button>
+
+          <div class="recap_trophes">
+            <div class="trophes-header">
+              <h2>Trophées du Chef</h2>
+              <div class="trophes-stats">
+                <p>
+                  Trophées gagnés :
+                  <span id="trophies-count" class="badge">0</span>/100
+                </p>
+                <p>Équipements : <span id="equip-count">0</span></p>
+                <p>
+                  État des lieux :
+                  <span id="location-status">Cuisine de rue</span>
+                </p>
+              </div>
+            </div>
+
+            <div id="trophies-container" class="trophies-grid"></div>
+          </div>
+
+          <div id="tooltip" class="hidden"></div>
+        </div>
+
+        <div class="progres">
+          <div class="country-card locked">
+            <!-- HEADER -->
+            <div class="country-top">
+              <img
+                class="flag"
+                src="https://flagcdn.com/h60/fr.png"
+                alt="Drapeau de la France"
+              />
+
+              <div class="country-info">
+                <h3>France</h3>
+                <p class="dish">🍲 Ratatouille</p>
+              </div>
+            </div>
+
+            <div class="badges" id="badges-france">
+              <span class="badge-slot">🥇</span>
+              <span class="badge-slot">🥇</span>
+              <span class="badge-slot">🥈</span>
+              <span class="badge-slot">🥉</span>
+            </div>
+
+            <div class="progress-wrapper">
+              <div
+                id="prog-bar-france"
+                class="progress-bar"
+                style="width: 0%"
+              ></div>
+            </div>
+            <span class="percent" id="percent-france">0 %</span>
+          </div>
+
+          <aside class="shop-container">
+            <h2>Boutique du Chef 🛒</h2>
+            <div class="btn_multiple">
+              <p id="titre">💰Acheter</p>
+              <button class="btn-multiple_achat">1</button>
+              <button class="btn-multiple_achat">10</button>
+              <button class="btn-multiple_achat">50</button>
+              <button class="btn-multiple_achat">100</button>
+            </div>
+            <div class="shop-tabs">
+              <div></div>
+              <div class="tab-btn active" onclick="buyItem('ingredients')">
+                <span class="material-symbols-outlined"
+                  >local_fire_department</span
+                >
+                <div>
+                  <p>Ingrédients</p>
+                  <span id="cost-ingredients" class="cost_actuel">10</span>
+                </div>
+
+                <span id="count-ingredients" class="nbr_achat">0</span>
+              </div>
+              <div class="tab-btn active" onclick="buyItem('ustensiles')">
+                <span class="material-symbols-outlined">skillet</span>
+                <div>
+                  <p>Ustensiles</p>
+                  <span id="cost-ustensiles" class="cost_actuel">40</span>
+                </div>
+                <span id="count-ustensiles" class="nbr_achat">0</span>
+              </div>
+              <div class="tab-btn" onclick="buyItem('equipe')">
+                <span class="material-symbols-outlined">engineering</span>
+                <div>
+                  <p>Equipe</p>
+                  <span id="cost-equipe" class="cost_actuel">100</span>
+                </div>
+                <span id="count-equipe" class="nbr_achat">0</span>
+              </div>
+              <div class="tab-btn active" onclick="buyItem('robots')">
+                <span class="material-symbols-outlined">oven_gen</span>
+                <div>
+                  <p>Robots</p>
+                  <span id="cost-robots" class="cost_actuel">1000</span>
+                </div>
+                <span id="count-robots" class="nbr_achat">0</span>
+              </div>
+            </div>
+
+            <div id="shop-items" class="shop-items-list"></div>
+          </aside>
+        </div>
+      </section>
+    </main>
+    <script src="Javascript/trophies_card.js"></script>
+    <script src="Javascript/script.js"></script>
+  </body>
+</html>

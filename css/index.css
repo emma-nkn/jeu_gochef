@@ -1,0 +1,450 @@
+/* 1. INITIALISATION DES COULEURS (Variables) */
+:root {
+  --bg-color: #3e2723;
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --main-action: #ff7043;
+  --shop-accent: #66bb6a;
+  --text-color: #fdfdfd;
+  --sub-text: rgba(255, 255, 255, 0.7);
+  --border: rgba(255, 255, 255, 0.1);
+}
+/* 2. RESET DE BASE & ACCESSIBILITÉ */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  background: radial-gradient(circle at top, #4e342e, #2e1b17);
+  min-height: 100vh;
+}
+
+#game-main {
+  margin: 1rem 2rem;
+}
+
+#game-container {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr; /* gauche / centre / droite */
+  gap: 6rem;
+
+  padding: 20px;
+  min-height: 80vh;
+}
+
+/* 3. MISE EN PAGE DU CONTENEUR JEU */
+#game-container {
+  display: flex;
+  justify-content: center;
+
+  padding: 1.5rem;
+
+  background: var(--card-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.game-area {
+  width: 100%;
+  max-width: 400px;
+  padding: 1.5rem;
+
+  background: var(--card-bg);
+  border-radius: 20px;
+  border: 1px solid var(--border);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.gamer_grade {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.gamer_grade span {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  color: var(--main-action);
+  font-weight: bold;
+  font-size: 36px;
+
+  background-color: #f0f0f0;
+  border: 2px solid var(--text-color);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  opacity: 0.3;
+}
+
+/* Quand le grade est débloqué via JS */
+.gamer_grade span.unlocked {
+  opacity: 1;
+  background-color: var(--shop-accent);
+  color: white;
+  transform: scale(1.1);
+}
+
+/* boutton du click */
+
+#main-dish {
+  font-size: 30px;
+  color: var(--main-action);
+  transition:
+    transform 0.1s,
+    filter 0.2s;
+}
+
+#main-dish:hover {
+  filter: brightness(1.2);
+}
+
+#main-dish:active {
+  transform: scale(0.8) rotate(-5deg);
+}
+
+.recap_trophes {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.trophes-header {
+  align-self: flex-start;
+  margin-bottom: 20px;
+  padding: 15px;
+  background-color: transparent;
+  border-radius: 10px;
+  border-left: 5px solid var(--shop-accent);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.09);
+}
+
+.trophes-header h2 {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: var(--text-color);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.trophes-stats {
+  display: flex;
+  flex-direction: column; /* Les stats l'une sous l'autre */
+  gap: 8px;
+}
+
+.trophes-stats p {
+  font-size: 0.95rem;
+  font-weight: 500;
+  display: flex;
+  justify-content: space-between; /* Texte à gauche, chiffre à droite */
+  align-items: center;
+  border-bottom: 1px dashed #eee;
+  padding-bottom: 4px;
+}
+
+.badge {
+  background: linear-gradient(135deg, var(--main-action), var(--shop-accent));
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+#location-status {
+  color: var(--shop-accent);
+  font-style: italic;
+  font-weight: bold;
+}
+
+#equip-count {
+  color: var(--text-color);
+  font-weight: bold;
+}
+
+/* les cartes de trophées */
+.trophies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
+  gap: 3px;
+  padding: 15px;
+
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  max-height: 200px; /* Pour éviter que les 100 trophées ne prennent toute la page */
+  overflow-y: scroll; /* Ajoute un défilement */
+}
+
+#trophies-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+#trophies-container::-webkit-scrollbar-thumb {
+  background: var(--shop-accent);
+  border-radius: 10px;
+}
+.trophy-card {
+  aspect-ratio: 1 / 1;
+  border-radius: 12px;
+
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+/* locked */
+.trophy-card {
+  opacity: 0.3;
+}
+
+/* unlocked */
+.trophy-card.unlocked {
+  opacity: 1;
+  background: linear-gradient(135deg, var(--shop-accent), #43a047);
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+#tooltip {
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.85);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  pointer-events: none;
+  z-index: 1000;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  max-width: 200px;
+  line-height: 1.4;
+}
+
+.hidden {
+  display: none;
+}
+
+#tooltip strong {
+  display: block;
+  color: var(--shop-accent);
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+/* ================================================================= */
+.progres {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+}
+.country-card {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: 0.3s;
+}
+
+/* effet hover */
+.country-card:hover {
+  transform: translateY(-5px);
+}
+
+/* HEADER */
+.country-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* .country-card.locked {
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.country-card.locked::after {
+  content: "🔒 Verrouillé";
+  font-size: 0.8rem;
+  text-align: center;
+} */
+
+.flag {
+  width: 40px;
+  height: 20px;
+  object-fit: cover;
+
+  border-radius: 1%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.country-info h3 {
+  font-size: 1.1rem;
+}
+
+.dish {
+  font-size: 0.85rem;
+  color: var(--sub-text);
+}
+
+/* BADGES */
+.badges {
+  display: flex;
+  justify-content: space-between;
+}
+
+.badge-slot {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.3;
+  transition: all 0.4s ease;
+}
+
+.badge-slot.unlocked {
+  opacity: 1;
+  background: linear-gradient(135deg, #ffd54f, #ffb300);
+}
+
+/* 
+.badge-slot.unlocked {
+  filter: grayscale(0); 
+  opacity: 1;           
+  transform: scale(1.1);
+}
+ */
+/* PROGRESS BAR */
+.progress-wrapper {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--main-action), var(--shop-accent));
+  transition: width 0.3s;
+}
+
+.percent {
+  font-size: 0.8rem;
+  text-align: right;
+  color: var(--sub-text);
+}
+/* ================================= */
+
+.btn_multiple {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+  background: #f0f0f0;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+
+#titre {
+  font-size: 0.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+.btn-multiple_achat {
+  flex: 1;
+  /* padding: 5px 10px; */
+  border: 1px solid #ccc;
+  background: white;
+
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: all 0.2s;
+}
+
+.btn-multiple_achat:hover {
+  background-color: var(--text-color);
+  color: white;
+}
+
+.btn-multiple_achat.active {
+  background-color: var(--shop-accent);
+  color: white;
+  border-color: var(--shop-accent);
+}
+
+/* .buy-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+} */
+
+.tab-btn {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 10px 15px;
+  gap: 32px;
+
+  background-color: var(--shop-accent);
+  color: white;
+
+  border: 2px solid var(--text-color);
+  border-radius: 12px;
+
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+
+  box-shadow: 0 4px 0px var(--text-color);
+}
+
+.tab-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0px var(--text-color);
+  filter: brightness(1.1);
+}
+
+.tab-btn:active {
+  transform: translateY(4px);
+  box-shadow: 0 0px 0px var(--text-color);
+}
+
+.tab-btn div p {
+  margin: 0;
+  font-weight: bold;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.tab-btn {
+}
+.tab-btn .cost_actuel {
+  font-size: 1rem;
+  opacity: 0.9;
+}
