@@ -141,17 +141,17 @@ function updateGrades() {
   }
 
   // 🥈
-  if (unlockedGrades < 2 && ust >= 10 && rob >= 2) {
+  if (unlockedGrades < 2 && ust >= 20 && rob >= 2) {
     newGrades = 2;
   }
 
   // 🥇
-  if (unlockedGrades < 3 && ust >= 15 && eq >= 5 && rob >= 3) {
+  if (unlockedGrades < 3 && ust >= 15 && eq >= 15 && rob >= 5) {
     newGrades = 3;
   }
 
   // 👑
-  if (unlockedGrades < 4 && ing >= 20 && ust >= 20 && eq >= 10 && rob >= 5) {
+  if (unlockedGrades < 4 && ing >= 60 && ust >= 50 && eq >= 10 && rob >= 10) {
     newGrades = 4;
   }
 
